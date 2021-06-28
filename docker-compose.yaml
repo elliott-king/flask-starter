@@ -17,6 +17,7 @@ services:
     ports:
       - '8080:8080'
 
+
   worker:
     labels:
       shipyard.before: 'poetry run flask db upgrade'
@@ -30,6 +31,7 @@ services:
       - './filesystem/entrypoints:/entrypoints:ro'
       - './migrations:/srv/migrations'
       - './src:/srv/src:ro'
+
 
   postgres:
     image: 'postgres:9.6-alpine'
