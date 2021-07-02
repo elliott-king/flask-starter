@@ -4,7 +4,7 @@ services:
 
   web:
     labels:
-      shipyard.route: '/'
+      shipyard.route: '/web'
     build: '.'
     environment:
       DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
@@ -16,6 +16,21 @@ services:
       - './src:/srv/src:ro'
     ports:
       - '8080:8080'
+
+  api:
+    labels:
+      shipyard.route: '/api'
+    build: '.'
+    environment:
+      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+      DEV: ${DEV}
+      FLASK_DEBUG: '1'
+    volumes:
+      - './filesystem/entrypoints:/entrypoints:ro'
+      - './migrations:/srv/migrations'
+      - './src:/srv/src:ro'
+    ports:
+      - '8080:8081'
 
   worker:
     labels:
