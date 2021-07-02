@@ -7,5 +7,24 @@
   {% for counter in counters %}
   <p>{{ counter.label }} Counter: {{ counter.count }}</p>
   {% endfor %}
+
+
+  <div>
+    <button id="web-button">"Web" Service</button>
+    <button id="api-button">"Api" Service</button>
+    <div id="response-div"></div>
+  </div>
 </div>
+<script>
+  document.addEventListener("click",(e) => {
+    if (e.target.tagName !== "BUTTON") return;
+    let url;
+    if (e.target.id === "web-button") url = "{{web_domain}}";
+    if (e.target.id === "api-button") url = "{{api_domain}}";
+    url = url + "/json";
+    fetch(url).then(res => res.json()).then(json => {
+      document.getElementById("response-div").innerHTML = json;
+    }).catch(console.error)
+  })
+</script>
 {% endblock %}
