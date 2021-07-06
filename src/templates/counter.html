@@ -21,7 +21,7 @@
     let url;
     if (e.target.id === "web-button") url = "{{web_domain}}";
     if (e.target.id === "api-button") url = "{{api_domain}}";
-    url = url + "/json";
+    url = "https://" +  url + "/json";
     fetch(url).then(res => res.json()).then(json => {
       document.getElementById("response-div").innerHTML = json;
     }).catch(console.error)
